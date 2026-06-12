@@ -1,0 +1,62 @@
+# ── Dependencies ────────────────────────────────────────────────
+node_modules/
+
+# ── Build output ─────────────────────────────────────────────────
+dist/
+dist-ssr/
+build/
+
+# ── Environment & secrets ────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# Google OAuth credentials & tokens (NEVER commit these)
+server/sheets-credentials.json
+server/sheets-token.json
+server/gmail-credentials.json
+server/gmail-token.json
+server/newsletter-1610.json
+**/sheets-credentials.json
+**/sheets-token.json
+**/*-credentials.json
+**/*-token.json
+
+# ── Database ─────────────────────────────────────────────────────
+server/data/*.db
+server/data/*.db-shm
+server/data/*.db-wal
+server/data/*.sqlite
+server/data/*.sqlite3
+
+# ── TypeScript ───────────────────────────────────────────────────
+*.tsbuildinfo
+
+# ── Logs ─────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Editor ───────────────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── OS ───────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Vite ─────────────────────────────────────────────────────────
+*.local
+
+# ── Chrome extension build artifacts ────────────────────────────
+chrome-extension/dist/

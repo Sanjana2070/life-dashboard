@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --bg-base: #181a29;
+  --bg-surface: #1b2021;
+  --bg-elevated: #1b2021;
+  --border: rgba(184, 155, 196, 0.25);
+  --text-primary: #f3e2d6;
+  --text-muted: #debcb2;
+  --accent: #7a4a8e;
+  --accent-hover: #b89bc4;
+  --accent-subtle: rgba(122, 74, 142, 0.12);
+  --color-lavender: #e5d0f0;
+  --color-purple-mid: #b89bc4;
+  --green: #4caf50;
+  --orange: #ff6b35;
+  --red: #ef4444;
+  --font-heading: 'League Spartan', 'Bespoke Serif', serif;
+  --font-body: 'Playfair Display', Lato, serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+#root {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
