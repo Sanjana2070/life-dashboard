@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import api from '../api/client'
+import { today, INPUT_STYLE } from '../lib/util'
 import type { FoodLog } from '../types'
-
-function today() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 function getMondayOfWeek(date: Date) {
   const d = new Date(date)
@@ -29,17 +26,6 @@ const REMINDERS = [
   { time: '17:00', label: 'Dinner', icon: '🌙' },
   { time: '20:00', label: 'Evening snack', icon: '🍎' },
 ]
-
-const INPUT_STYLE: React.CSSProperties = {
-  background: 'var(--bg-elevated)',
-  border: '1px solid var(--border)',
-  borderRadius: 6,
-  color: 'var(--text-primary)',
-  padding: '8px 12px',
-  fontSize: 14,
-  width: '100%',
-  outline: 'none',
-}
 
 export default function Food() {
   const [logs, setLogs] = useState<FoodLog[]>([])

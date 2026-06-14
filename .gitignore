@@ -60,3 +60,6 @@ desktop.ini
 
 # ── Chrome extension build artifacts ────────────────────────────
 chrome-extension/dist/
+
+# ── Local review / workflow tooling (not project source) ─────────
+ponytail-review.md

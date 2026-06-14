@@ -1,8 +1,7 @@
 // Life Dashboard Time Tracker — background service worker
 // Tracks active time per site per day. No session counts, no popup UI.
-// Syncs to localhost:3001 every 30s. Fires notifications at 80% and 100% of daily budgets.
+// Syncs to localhost:3001 every 30s.
 
-const DASHBOARD_URL = 'http://localhost:5173'
 const SERVER_URL = 'http://localhost:3001'
 const ALARM_NAME = 'flush-and-sync'
 

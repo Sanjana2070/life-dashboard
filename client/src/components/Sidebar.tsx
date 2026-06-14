@@ -1,20 +1,10 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { TRACKERS } from '../lib/trackers'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home', icon: '⌂', exact: true },
-  { to: '/networking', label: 'Networking', icon: '🤝' },
-  { to: '/job-apps', label: 'Job Applications', icon: '💼' },
-  { to: '/productivity', label: 'Productivity', icon: '📊' },
-  { to: '/tech-learnings', label: 'Tech Learnings', icon: '🧠' },
-  { to: '/finances', label: 'Finances', icon: '💰' },
-  { to: '/mood', label: 'Mood', icon: '🌙' },
-  { to: '/food', label: 'Food', icon: '🥗' },
-  { to: '/movement', label: 'Movement & Dance', icon: '💃' },
-  { to: '/habits', label: 'Habits', icon: '✅' },
-  { to: '/sleep', label: 'Sleep', icon: '😴' },
-  { to: '/student-life', label: 'Student Life', icon: '🎓' },
-  { to: '/content-creation', label: 'Content Creation', icon: '✍️' },
+  ...TRACKERS.map(({ to, label, icon }) => ({ to, label, icon, exact: false })),
 ]
 
 export default function Sidebar() {

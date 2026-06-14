@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import api from '../api/client'
+import { today, INPUT_STYLE, RATING_COLORS } from '../lib/util'
 import type { SleepLog } from '../types'
-
-function today() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 function durationLabel(bedtime?: string, wake_time?: string) {
   if (!bedtime || !wake_time) return null
@@ -16,17 +13,6 @@ function durationLabel(bedtime?: string, wake_time?: string) {
   const h = Math.floor(mins / 60)
   const m = mins % 60
   return `${h}h ${m}m`
-}
-
-const INPUT_STYLE: React.CSSProperties = {
-  background: 'var(--bg-elevated)',
-  border: '1px solid var(--border)',
-  borderRadius: 6,
-  color: 'var(--text-primary)',
-  padding: '8px 12px',
-  fontSize: 14,
-  width: '100%',
-  outline: 'none',
 }
 
 export default function Sleep() {
@@ -69,8 +55,6 @@ export default function Sleep() {
     load()
   }
 
-  const qualityColors = ['', '#ef4444', '#ff6b35', '#f59e0b', '#7c83fd', '#4caf50']
-
   return (
     <div>
       <PageHeader title="Sleep" subtitle="Track your sleep quality and times" />
@@ -110,7 +94,7 @@ export default function Sleep() {
                 style={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: qualityColors[today_entry.quality],
+                  color: RATING_COLORS[today_entry.quality],
                 }}
               >
                 {today_entry.quality}/5
@@ -217,7 +201,7 @@ export default function Sleep() {
                   {durationLabel(log.bedtime, log.wake_time) ?? ''}
                 </span>
                 {log.quality && (
-                  <span style={{ color: qualityColors[log.quality], marginLeft: 'auto' }}>
+                  <span style={{ color: RATING_COLORS[log.quality], marginLeft: 'auto' }}>
                     ★ {log.quality}/5
                   </span>
                 )}

@@ -1,24 +1,10 @@
 import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import api from '../api/client'
-import { HABIT_LABELS, type HabitKey } from '../types'
+import { today } from '../lib/util'
+import { HABIT_LABELS, type HabitKey, type HabitLog } from '../types'
 
-interface HabitLog {
-  id: number
-  date: string
-  habit: string
-  completed: number
-  notes?: string
-}
-
-const HABITS: HabitKey[] = [
-  'read_books',
-  'breathwork',
-  'morning_pages',
-  'movement_prompt',
-  'brush_twice',
-  'movement_video',
-]
+const HABITS = Object.keys(HABIT_LABELS) as HabitKey[]
 
 const HABIT_ICONS: Record<HabitKey, string> = {
   read_books: '📚',
@@ -27,10 +13,6 @@ const HABIT_ICONS: Record<HabitKey, string> = {
   movement_prompt: '💃',
   brush_twice: '🪥',
   movement_video: '🎥',
-}
-
-function today() {
-  return new Date().toISOString().slice(0, 10)
 }
 
 export default function Habits() {

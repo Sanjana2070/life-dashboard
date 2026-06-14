@@ -1,25 +1,11 @@
 import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import api from '../api/client'
+import { today, INPUT_STYLE } from '../lib/util'
 import type { MovementLog } from '../types'
-
-function today() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 const TYPES = ['walk', 'exercise', 'dance'] as const
 const TYPE_ICONS: Record<string, string> = { walk: '🚶', exercise: '💪', dance: '💃' }
-
-const INPUT_STYLE: React.CSSProperties = {
-  background: 'var(--bg-elevated)',
-  border: '1px solid var(--border)',
-  borderRadius: 6,
-  color: 'var(--text-primary)',
-  padding: '8px 12px',
-  fontSize: 14,
-  width: '100%',
-  outline: 'none',
-}
 
 export default function Movement() {
   const [logs, setLogs] = useState<MovementLog[]>([])

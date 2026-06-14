@@ -8,7 +8,6 @@ if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
 const db = new Database(path.join(DATA_DIR, 'life-dashboard.db'))
 
 db.pragma('journal_mode = WAL')
-db.pragma('foreign_keys = ON')
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS mood_entries (
@@ -43,12 +42,6 @@ db.exec(`
     duration_minutes INTEGER,
     notes TEXT,
     created_at TEXT DEFAULT (datetime('now'))
-  );
-
-  CREATE TABLE IF NOT EXISTS movement_prompts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date TEXT NOT NULL UNIQUE,
-    prompt TEXT NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS habit_logs (

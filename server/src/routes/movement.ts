@@ -22,18 +22,7 @@ const PROMPTS = [
 ]
 
 function getDailyPrompt(date: string): string {
-  const existing = db
-    .prepare('SELECT prompt FROM movement_prompts WHERE date = ?')
-    .get(date) as { prompt: string } | undefined
-  if (existing) return existing.prompt
-
-  const dayIndex = new Date(date).getDate()
-  const prompt = PROMPTS[dayIndex % PROMPTS.length]
-  db.prepare('INSERT OR IGNORE INTO movement_prompts (date, prompt) VALUES (?, ?)').run(
-    date,
-    prompt
-  )
-  return prompt
+  return PROMPTS[new Date(date).getDate() % PROMPTS.length]
 }
 
 router.get('/', (req: Request, res: Response) => {

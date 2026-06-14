@@ -43,7 +43,7 @@ Life Dashboard is a monorepo with three independent modules:
 | Movement & Dance | SQLite | `/movement` |
 | Habits | SQLite | `/habits` |
 | Sleep | SQLite | `/sleep` |
-| Student Life | Google Sheets (stub) | `/student-life` |
+| Student Life | Placeholder (not yet wired) | `/student-life` |
 | Content Creation | Google Sheets | `/content-creation` |
 
 ### Getting Started
@@ -99,7 +99,6 @@ Load `chrome-extension/` as an unpacked extension in `chrome://extensions`.
 - Manifest V3 service worker
 - Tracks active tab domain per day
 - Syncs usage data to backend every 30 seconds
-- Fires browser notifications at 80% and 100% of per-site daily budgets
 
 ---
 
@@ -120,14 +119,15 @@ chrome-extension/  →  POST /api/productivity  →  server/
 ```
 src/
 ├── api/client.ts          # Axios instance (baseURL: /api)
-├── App.tsx                # BrowserRouter + all 13 routes
+├── App.tsx                # BrowserRouter; SQLite pages + config-driven Sheets routes
 ├── components/            # Sidebar, PageHeader, SheetTable, StatCard
 ├── hooks/useSheetData.ts  # CRUD hook for Google Sheets endpoints
-├── pages/                 # One file per tracker
+├── lib/                   # Shared helpers: today(), INPUT_STYLE, RATING_COLORS, TRACKERS
+├── pages/                 # One file per SQLite tracker; SheetPage.tsx for all Sheets trackers
 └── types/index.ts         # All shared TypeScript interfaces
 ```
 
-Pages that use Google Sheets call `useSheetData(endpoint)`, which returns `{ data, loading, notConfigured, reload, addRow, editRow, removeRow }`. Pages that use SQLite make direct `api.get/post/delete` calls.
+Pages that use Google Sheets render the shared `SheetPage`, driven by the `SHEET_PAGES` config in `App.tsx`; each calls `useSheetData(endpoint)`, which returns `{ data, loading, notConfigured, reload, addRow, editRow, removeRow }`. Pages that use SQLite make direct `api.get/post/delete` calls. The sidebar nav and home grid both render from the single `TRACKERS` list in `lib/trackers.ts`.
 
 ### Server
 
@@ -135,7 +135,7 @@ Pages that use Google Sheets call `useSheetData(endpoint)`, which returns `{ dat
 src/
 ├── index.ts               # Express app, CORS, route mounts
 ├── config.ts              # Env vars with defaults
-├── db.ts                  # SQLite init + 8 table schemas
+├── db.ts                  # SQLite init + 7 table schemas
 ├── routes/                # One router per tracker
 │   ├── food.ts
 │   ├── mood.ts
@@ -154,7 +154,7 @@ src/
 
 ### Database Schema
 
-8 SQLite tables in `server/data/`:
+7 SQLite tables in `server/data/`:
 
 | Table | Key columns |
 |---|---|
@@ -162,7 +162,6 @@ src/
 | `food_logs` | date, meal_type (breakfast/lunch/dinner/snack), description |
 | `meal_prep` | week_start (unique), plan |
 | `movement_logs` | date, type (walk/exercise/dance), duration_minutes, notes |
-| `movement_prompts` | date (unique), prompt |
 | `habit_logs` | date, habit, completed (0/1), notes — UNIQUE(date, habit) |
 | `sleep_logs` | date (unique), bedtime, wake_time, quality (1–5), notes |
 | `productivity_daily` | date (unique), data_json (JSON blob) |
@@ -259,7 +258,7 @@ Base font size: `14px`, line-height: `1.5`.
 
 **Food** — Per-meal logging (breakfast / lunch / dinner / snack) + a weekly meal prep plan stored per `week_start` date.
 
-**Movement & Dance** — Logs type (walk / exercise / dance), duration in minutes, and optional notes. Daily movement prompts stored separately.
+**Movement & Dance** — Logs type (walk / exercise / dance), duration in minutes, and optional notes. A daily movement prompt is derived deterministically from the date (no storage).
 
 **Sleep** — One entry per day: bedtime, wake time, quality rating 1–5, notes.
 
@@ -303,7 +302,8 @@ When adding tests in the future, prefer integration tests that hit the real SQLi
 - All environment variables go through `server/src/config.ts` — no raw `process.env` access in route handlers
 - New Google Sheets tabs must be added to `server/src/index.ts` using `sheetsRoute()` — do not create a new route file for each tab
 - New SQLite tables must be added in `server/src/db.ts` with the table name, schema, and `CREATE TABLE IF NOT EXISTS`
-- New tracker pages go in `client/src/pages/` and must be added to `App.tsx` and `Sidebar`
+- Add every tracker to the `TRACKERS` list in `client/src/lib/trackers.ts` — this drives both the sidebar nav and the home grid
+- A new Google Sheets tracker needs only a row in the `SHEET_PAGES` config in `App.tsx` (it reuses `SheetPage`); a new SQLite tracker gets its own page in `client/src/pages/` wired into `App.tsx`
 
 ---
 

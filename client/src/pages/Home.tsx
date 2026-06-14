@@ -1,20 +1,6 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
-
-const TRACKERS = [
-  { to: '/networking', label: 'Networking', icon: '🤝', desc: 'Contacts & interactions' },
-  { to: '/job-apps', label: 'Job Applications', icon: '💼', desc: 'Application pipeline' },
-  { to: '/productivity', label: 'Productivity', icon: '📊', desc: 'Browser time tracking' },
-  { to: '/tech-learnings', label: 'Tech Learnings', icon: '🧠', desc: 'Projects & courses' },
-  { to: '/finances', label: 'Finances', icon: '💰', desc: 'Monthly expenses' },
-  { to: '/mood', label: 'Mood', icon: '🌙', desc: 'Journal & mood ratings' },
-  { to: '/food', label: 'Food', icon: '🥗', desc: 'Meals & prep' },
-  { to: '/movement', label: 'Movement & Dance', icon: '💃', desc: 'Exercise & dance logs' },
-  { to: '/habits', label: 'Habits', icon: '✅', desc: 'Daily habit checklist' },
-  { to: '/sleep', label: 'Sleep', icon: '😴', desc: 'Sleep quality log' },
-  { to: '/student-life', label: 'Student Life', icon: '🎓', desc: 'NYU deadlines & events' },
-  { to: '/content-creation', label: 'Content Creation', icon: '✍️', desc: 'Content plans & tracking' },
-]
+import { TRACKERS } from '../lib/trackers'
 
 export default function Home() {
   return (

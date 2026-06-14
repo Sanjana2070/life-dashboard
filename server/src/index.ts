@@ -10,7 +10,6 @@ import movementRouter from './routes/movement'
 import moodRouter from './routes/mood'
 import productivityRouter from './routes/productivity'
 import { sheetsRoute } from './routes/sheets'
-import { sheetsStub } from './routes/sheets-stub'
 
 const app = express()
 
@@ -30,10 +29,6 @@ app.use('/api/job-apps',        sheetsRoute('applications',                     
 app.use('/api/tech-learnings',  sheetsRoute(['project-documentation', 'learnings-before-nyu'], 'Tech Learnings'))
 app.use('/api/finances',        sheetsRoute('finances',                                 'Finances'))
 app.use('/api/content-creation',sheetsRoute('content-creation',                        'Content Creation'))
-
-// Not yet configured — no sheet tab exists
-app.use('/api/student-life',  sheetsStub('Student Life'))
-app.use('/api/newsletters',   sheetsStub('Newsletters'))
 
 app.get('/api/health', (_req, res) => res.json({ ok: true, time: new Date().toISOString() }))
 

@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import api from '../api/client'
+import { today, INPUT_STYLE, RATING_COLORS } from '../lib/util'
 import type { MoodEntry, MoodPeriod } from '../types'
-
-function today() {
-  return new Date().toISOString().slice(0, 10)
-}
 
 const PERIODS: { key: MoodPeriod; label: string; icon: string }[] = [
   { key: 'morning', label: 'Morning', icon: '🌅' },
@@ -13,19 +10,7 @@ const PERIODS: { key: MoodPeriod; label: string; icon: string }[] = [
   { key: 'night', label: 'Night', icon: '🌙' },
 ]
 
-const RATING_COLORS = ['', '#ef4444', '#ff6b35', '#f59e0b', '#7c83fd', '#4caf50']
 const RATING_LABELS = ['', 'Very low', 'Low', 'Okay', 'Good', 'Great']
-
-const INPUT_STYLE: React.CSSProperties = {
-  background: 'var(--bg-elevated)',
-  border: '1px solid var(--border)',
-  borderRadius: 6,
-  color: 'var(--text-primary)',
-  padding: '8px 12px',
-  fontSize: 14,
-  width: '100%',
-  outline: 'none',
-}
 
 interface MoodBlockProps {
   period: { key: MoodPeriod; label: string; icon: string }
